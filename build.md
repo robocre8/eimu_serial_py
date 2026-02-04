@@ -3,7 +3,7 @@
     python3 -m venv .env
   ```
   ```shell
-    python3 -m venv .env
+    source .env/bin/activate
   ```
 
 - install necessary packges for build
