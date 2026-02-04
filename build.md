@@ -1,7 +1,9 @@
 - create virtual env and activate it
   ```shell
     python3 -m venv .env
-    source .env/bin/activate
+  ```
+  ```shell
+    python3 -m venv .env
   ```
 
 - install necessary packges for build
@@ -17,7 +19,9 @@
 - push to PYpi
   ```shell
     twine upload dist/* #PyPI
-    or
+  ```
+  OR
+  ```shell
     python3 -m twine upload --repository testpypi dist/* #testPyPI
   ```
 

@@ -11,6 +11,8 @@ Python serial interface for the Easy IMU (EIMU).
 - you'll need to pip install the pyserial library
   ```shell
     pip3 install eimu-serial   //linux or mac
+  ```
+  ```shell
     pip install eimu-serial  //windows
   ```
 
@@ -20,6 +22,8 @@ Python serial interface for the Easy IMU (EIMU).
 - you'll need to pip install the pyserial library
   ```shell
     pip3 uninstall eimu-serial   //linux or mac
+  ```
+  ```shell
     pip uninstall eimu-serial  //windows
   ```
 
@@ -101,12 +105,7 @@ def main():
   serial_timeout = 0.018 #value < 0.02 (for 50Hz comm)
 
   imu.connect(serial_port, serial_baudrate, serial_timeout)
-
-  for i in range(4):
-    time.sleep(1.0)
-    print(i+1, " sec")
-
-  success = imu.clearDataBuffer()
+  # success = imu.clearDataBuffer()
 
   # change the reference frame to ENU frame (0 - NWU,  1 - ENU,  2 - NED)
   imu.setWorldFrameId(1)
