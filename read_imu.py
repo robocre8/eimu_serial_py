@@ -15,11 +15,7 @@ def main():
 
   imu.connect(serial_port, serial_baudrate, serial_timeout)
 
-  for i in range(4):
-    time.sleep(1.0)
-    print(i+1, " sec")
-
-  success = imu.clearDataBuffer()
+  # success = imu.clearDataBuffer()
 
   # change the reference frame to ENU frame (0 - NWU,  1 - ENU,  2 - NED)
   imu.setWorldFrameId(1)
