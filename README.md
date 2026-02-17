@@ -48,7 +48,7 @@ Python serial interface for the Easy IMU (EIMU).
 
 ## Basic Library functions and usage
 
-- connect to the EIMU module
+- connect to EIMU module
   > imu = EIMUSerialClient()
   >
   > imu.connect("port_name or port_path")
@@ -60,28 +60,22 @@ Python serial interface for the Easy IMU (EIMU).
   > imu.setWorldFrameId(frame_id)
 
 - get imu reference frame -> NWU (0), ENU (1), NED (2) 
-  > imu.getWorldFrameId() # returns tuple -> (success, frame_id): bool, int
+  > imu.getWorldFrameId() # returns bool, int -> success, frame_id
 
 - adjust filter gain
   > imu.setFilterGain(gain)
 
 - read filter gain
-  > imu.getFilterGain() # returns tuple -> (success, gain): bool, float
+  > imu.getFilterGain() # returns bool, float -> success, gain
 
 - read all IMU data (orientation - RPY, linear acceleration, angular velocity)
-  > imu.readImuData() # returns tuple -> (success, r, p, y, ax, ay, az, gx, gy, gz): bool, float, float, float, float, float, float, float, float, float
+  > imu.readImuData() # returns bool, tuple(size=9foats) -> success, (r, p, y, ax, ay, az, gx, gy, gz)
 
 - read Oreintation - Quaterninos
-  > imu.readQuat() # returns tuple -> (success, qw, qx, qy, qz): bool, float, float, float, float
+  > imu.readQuat() # returns bool, tuple(size=4foats) -> success, (qw, qx, qy, qz)
 
 - read Oreintation - RPY
-  > imu.readRPY() # returns tuple -> (success, r, p, y): bool, float, float, float
-
-- read Linear Acceleration
-  > imu.readLinearAcc() # returns tuple -> (success, ax, ay, az): bool, float, float, float
-
-- read Gyro (Angular velocity)
-  > imu.readGyro() # returns tuple -> (success, gx, gy, gz): bool, float, float, float
+  > imu.readRPY() # returns bool, tuple(size=3foats) -> success, (r, p, y)
 
 - while these function above help communicate with the already configure EPMC module, more examples of advanced funtions usage for parameter tuning can be found in the [eimu_setup_application](https://github.com/robocre8/eimu_setup_application) source code
 
@@ -105,6 +99,7 @@ def main():
   serial_timeout = 0.018 #value < 0.02 (for 50Hz comm)
 
   imu.connect(serial_port, serial_baudrate, serial_timeout)
+
   # success = imu.clearDataBuffer()
 
   # change the reference frame to ENU frame (0 - NWU,  1 - ENU,  2 - NED)
@@ -127,9 +122,19 @@ def main():
 
   while True:
     if time.time() - prevTime > sampleTime:
-      success, r, p, y, ax, ay, az, gx, gy, gz = imu.readImuData()
+      # success, buffer = imu.readQuat() # qw, qx, qy, qz
+      # if success:
+      #   qw = buffer[0]
+      #   qx = buffer[1]
+      #   qy = buffer[2]
+      #   qz = buffer[3]
 
+      success, buffer = imu.readImuData() # r, p, y, ax, ay, az, gx, gy, gz
       if success:
+        r = buffer[0]; p = buffer[1]; y = buffer[2]
+        ax = buffer[3]; ay = buffer[4]; az = buffer[5]
+        gx = buffer[6]; gy = buffer[7]; gz = buffer[8]
+
         print(f"r: {round(r*toDeg,2)}\tp: {round(p*toDeg,2)}\ty: {round(y*toDeg,2)}")
         print(f"ax: {ax}\tay: {ay}\taz: {az}")
         print(f"gx: {gx}\tgy: {gy}\tgz: {gz}")
@@ -140,5 +145,4 @@ def main():
 
 if __name__ == "__main__":
   main()
-
 ```
