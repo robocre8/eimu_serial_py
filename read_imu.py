@@ -37,6 +37,13 @@ def main():
 
   while True:
     if time.time() - prevTime > sampleTime:
+      # success, buffer = imu.readQuat() # qw, qx, qy, qz
+      # if success:
+      #   qw = buffer[0]
+      #   qx = buffer[1]
+      #   qy = buffer[2]
+      #   qz = buffer[3]
+
       success, buffer = imu.readImuData() # r, p, y, ax, ay, az, gx, gy, gz
       if success:
         r = buffer[0]; p = buffer[1]; y = buffer[2]
