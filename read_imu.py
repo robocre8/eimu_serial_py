@@ -37,9 +37,12 @@ def main():
 
   while True:
     if time.time() - prevTime > sampleTime:
-      success, r, p, y, ax, ay, az, gx, gy, gz = imu.readImuData()
-
+      success, buffer = imu.readImuData() # r, p, y, ax, ay, az, gx, gy, gz
       if success:
+        r = buffer[0]; p = buffer[1]; y = buffer[2]
+        ax = buffer[3]; ay = buffer[4]; az = buffer[5]
+        gx = buffer[6]; gy = buffer[7]; gz = buffer[8]
+
         print(f"r: {round(r*toDeg,2)}\tp: {round(p*toDeg,2)}\ty: {round(y*toDeg,2)}")
         print(f"ax: {ax}\tay: {ay}\taz: {az}")
         print(f"gx: {gx}\tgy: {gy}\tgz: {gz}")

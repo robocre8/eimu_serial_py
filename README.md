@@ -44,25 +44,25 @@ A simple way to get started is simply to try out and follow the example code
   > imu.setWorldFrameId(frame_id)
 
 - get imu reference frame -> NWU (0), ENU (1), NED (2) 
-  > imu.getWorldFrameId() # returns tuple -> (success, frame_id): bool, int
+  > imu.getWorldFrameId() # returns bool, int -> success, frame_id
 
 - adjust filter gain
   > imu.setFilterGain(gain)
 
 - read filter gain
-  > imu.getFilterGain() # returns tuple -> (success, gain): bool, float
+  > imu.getFilterGain() # returns bool, float -> success, gain
 
 - read all IMU data (orientation - RPY, linear acceleration, angular velocity)
-  > imu.readImuData() # returns tuple -> (success, r, p, y, ax, ay, az, gx, gy, gz): bool, float, float, float, float, float, float, float, float, float
+  > imu.readImuData() # returns bool, tuple(size=9foats) -> success, (r, p, y, ax, ay, az, gx, gy, gz)
 
 - read Oreintation - Quaterninos
-  > imu.readQuat() # returns tuple -> (success, qw, qx, qy, qz): bool, float, float, float, float
+  > imu.readQuat() # returns bool, tuple(size=4foats) -> success, (qw, qx, qy, qz)
 
 - read Oreintation - RPY
-  > imu.readRPY() # returns tuple -> (success, r, p, y): bool, float, float, float
+  > imu.readRPY() # returns bool, tuple(size=3foats) -> success, (r, p, y)
 
 - read Linear Acceleration
-  > imu.readLinearAcc() # returns tuple -> (success, ax, ay, az): bool, float, float, float
+  > imu.readLinearAcc() # returns bool, tuple(size=3foats) -> success, (ax, ay, az)
 
 - read Gyro (Angular velocity)
-  > imu.readGyro() # returns tuple -> (success, gx, gy, gz): bool, float, float, float
+  > imu.readGyro() # returns bool, tuple(size=3foats) -> success, (gx, gy, gz)
